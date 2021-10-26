@@ -7,7 +7,6 @@ clean:
 	find . -type f -name '*.log' -prune -exec rm -rf {} \;
 	find . -type f -name '*.db' -prune -exec rm -rf {} \;
 	find . -type d -name "__pycache__" -prune -exec rm -rf {} \;
-	find . -type d -name "env" -prune -exec rm -rf {} \;
 	find . -type d -name "migrations" -prune -exec rm -rf {} \;
 
 install:
