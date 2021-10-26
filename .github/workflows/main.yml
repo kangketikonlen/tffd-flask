@@ -1,0 +1,37 @@
+name: 👌 Check dulu gans
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: 🌏 Goto the world of python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: 📦 Opening packages from awazone
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: 🧹 Cleaning content packages
+      run: |
+        make clean;
+        python manage.py db init;
+        python manage.py db migrate --message 'initial database migration';
+        python manage.py db upgrade;
+    - name: 🤖 Testing
+      run: |
+        python manage.py test

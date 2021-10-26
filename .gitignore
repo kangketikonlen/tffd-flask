@@ -102,6 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+*.db
 .env
 .venv
 env/
@@ -109,6 +110,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+migrations/
 
 # Spyder project settings
 .spyderproject
@@ -127,3 +129,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+database.db
+.DS_Store
