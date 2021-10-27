@@ -33,5 +33,4 @@ class LogoutAPI(Resource):
     def post(self) -> Tuple[Dict[str, str], int]:
         # get auth token
         auth_header = request.headers.get("Authorization")
-        print(auth_header)
         return Auth.logout_user(data=auth_header)

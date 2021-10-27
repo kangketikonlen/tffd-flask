@@ -1,3 +1,4 @@
+from os import stat
 from app.main.model.user import User
 from ..service.blacklist_service import save_token
 from typing import Dict, Tuple
@@ -77,3 +78,10 @@ class Auth:
                 "message": "Provide a valid auth token.",
             }
             return response_object, 401
+
+    @staticmethod
+    def extract_user(new_request):
+        # get the auth token
+        auth_token = new_request.headers.get("Authorization")
+        resp = User.decode_auth_token(auth_token)
+        return User.query.filter_by(id=resp).first()
