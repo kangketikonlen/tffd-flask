@@ -12,3 +12,4 @@ class Upload(Resource):
     @token_required
     def post(self):
         upload()
+        return {"status": "success", "message": "File berhasil di upload!"}, 201
