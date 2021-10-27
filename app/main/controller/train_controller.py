@@ -11,4 +11,9 @@ api = TrainDto.api
 class Train(Resource):
     @token_required
     def post(self):
-        start()
+        result = start()
+        response = {
+            "status": "success",
+            "message": "Predicted "+result
+        }
+        return response, 200

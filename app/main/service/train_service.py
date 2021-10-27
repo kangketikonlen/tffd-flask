@@ -66,7 +66,7 @@ vald_data_generator = datagen_val.flow_from_directory(
 
 def start():
     check_images()
-    generators()
+    return generators()
 
 
 def check_images():
@@ -77,30 +77,6 @@ def check_images():
             print("Found {} images of {}".format(No_of_images, class_name))
             classes.append(class_name)
     classes.sort()
-    print(classes)
-
-
-def display_images(data_generator, no=15):
-    sample_training_images, labels = next(data_generator)
-
-    plt.figure(figsize=[25, 25])
-
-    # By default we're displaying 15 images, you can show more examples
-    total_samples = sample_training_images[:no]
-
-    cols = 5
-    rows = np.floor(len(total_samples) / cols)
-
-    for i, img in enumerate(total_samples, 1):
-
-        plt.subplot(rows, cols, i)
-        plt.imshow(img)
-
-        # Converting One hot encoding labels to string labels and displaying it.
-        class_name = classes[np.argmax(labels[i - 1])]
-        plt.title(class_name)
-        plt.axis("off")
-
 
 def generators():
     display_images(train_data_generator)
@@ -138,15 +114,36 @@ def generators():
         metrics=["accuracy"],
     )
 
-    model.summary()
-    train(model)
+    # model.summary()
+    return train(model)
 
+
+def display_images(data_generator, no=15):
+    sample_training_images, labels = next(data_generator)
+
+    plt.figure(figsize=[25, 25])
+
+    # By default we're displaying 15 images, you can show more examples
+    total_samples = sample_training_images[:no]
+
+    cols = 5
+    rows = np.floor(len(total_samples) / cols)
+
+    for i, img in enumerate(total_samples, 1):
+
+        plt.subplot(rows, cols, i)
+        plt.imshow(img)
+
+        # Converting One hot encoding labels to string labels and displaying it.
+        class_name = classes[np.argmax(labels[i - 1])]
+        plt.title(class_name)
+        plt.axis("off")
 
 def train(model):
     history = model.fit(
         train_data_generator,
         steps_per_epoch=train_data_generator.samples // batch_size,
-        epochs=5,
+        epochs=1,
         validation_data=vald_data_generator,
         validation_steps=vald_data_generator.samples // batch_size,
     )
@@ -180,9 +177,10 @@ def train(model):
     index = np.argmax(pred[0])
     prob = np.max(pred[0])
     label = classes[index]
-    print("Predicted : {} {:.2f}%".format(label, prob * 100))
     plt.imshow(img[:, :, ::-1])
     plt.axis("off")
 
     ai_path = os.path.join(AI_PATH, "datasets.h5")
     model.save(ai_path)
+    results = "{} {:.2f}%".format(label, prob * 100)
+    return results
