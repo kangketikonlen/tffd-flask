@@ -27,3 +27,4 @@ Werkzeug==0.15.5
 opencv-contrib-python==4.5.4.58
 tensorflow==2.6.0
 matplotlib==3.4.3
+numpy==1.21.3
