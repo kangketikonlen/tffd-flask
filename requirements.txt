@@ -18,7 +18,7 @@ jsonschema==2.6.0
 Mako==1.0.7
 pycparser==2.18
 PyJWT==1.5.3
-python-dateutil==2.6.1
+python-dateutil==2.7
 pytz==2017.3
 selenium==3.8.1
 six==1.15.0
