@@ -27,3 +27,7 @@ class AuthDto:
 
 class UploadDto:
     api = Namespace("upload", description="upload face sample related operations")
+
+
+class TrainDto:
+    api = Namespace("train", description="train face sample related operations")
